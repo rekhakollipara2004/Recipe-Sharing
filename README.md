@@ -1,4 +1,4 @@
-### 🍳 Recipe-Sharing Platform
+# 🍳 Recipe-Sharing Platform
 
 Discover, Cook, and Thrive - Your personalized culinary companion for exploring recipes, planning meals, and shopping smarter.<br>
 
@@ -6,7 +6,8 @@ A modern, full-stack recipe-sharing application that empowers food enthusiasts t
 
 ## ✨ What Makes This Special
 Recipe-Sharing is more than just a recipe app—it's your complete kitchen companion. Whether you're a home cook looking for dinner inspiration, a fitness enthusiast tracking macros, or someone exploring new cuisines, this platform adapts to your needs.
-# Key Highlights
+
+## Key Highlights
 1. Secure Authentication - Safe user registration and login system <br>
 2. Smart Recipe Discovery - Browse and search through diverse recipes <br>
 3. Integrated Shopping Cart - Add ingredients directly to cart with one click <br>
@@ -14,14 +15,14 @@ Recipe-Sharing is more than just a recipe app—it's your complete kitchen compa
 5. Seamless Checkout - Detailed billing and order management <br>
 6. Data Persistence - Your recipes and preferences saved securely <br>
 
-## Frontend
+### Frontend
 
 HTML5: Semantic markup structure <br>
 CSS3: Modern styling with Flexbox and Grid<br>
 JavaScript (ES6+): Interactive functionality<br>
 React.js: Component-based UI library for dynamic user interfaces<br>
 
-## Backend
+### Backend
 
 Node.js: JavaScript runtime environment<br>
 Express.js: Web application framework for RESTful APIs<br>
