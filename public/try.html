@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bakery Layout</title>
+    <style>
+      body {
+        font-family: "Georgia", serif;
+        background-color: #fdf8f3;
+        color: #333;
+        padding: 40px;
+        margin: 0;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 60px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 60px;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .image-block,
+      .text-block {
+        max-width: 300px;
+      }
+
+      .image-block img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .text-block h2 {
+        font-size: 22px;
+        margin-top: 15px;
+      }
+
+      .text-block p {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Row 1: Heading -->
+    <div>
+      <h1>The Repinot tor cuests<br />theotect Basoand.</h1>
+    </div>
+
+    <!-- Row 1: Text | Image | Image  -->
+    <div class="row">
+      <div class="text-block">
+        <h2>Bucy Cafe Futug</h2>
+        <p>
+          Fibentur spemo catisera park dry-pamleon foona. On treethfignis uliber
+          task tveoncarserene oca untrivit joan doien groesing t henter cuspid
+          oentas.
+        </p>
+      </div>
+      <div class="image-block">
+        <img src="Images/biryani's.jpg" alt="Roll Bun" />
+        <h2>Roll Bun</h2>
+      </div>
+      <div class="image-block">
+        <img src="Images/biryani's.jpg" alt="Chocolate Bun" />
+        <h2>Chocolate Bun</h2>
+      </div>
+    </div>
+
+    <!-- Row 2: Image | Text | Image -->
+    <div class="row">
+      <div class="image-block">
+        <img src="Images/Rolls.png" alt="Cake Slice" />
+        <h2>Cake Slice</h2>
+      </div>
+      <div class="text-block">
+        <h2>Cread Hyou Jvite & Plony</h2>
+        <p>
+          Fedcind reoeens toebooscin tresto do inckedowdjents eninge tia
+          oinedets. Witto Gigio, resednts and ecoeas oessic rillas stoparo erose
+          oberoed Ogeli vun grett a year onteeeooks.
+        </p>
+      </div>
+      <div class="image-block">
+        <img src="Images/Rolls.png" alt="Cookies" />
+        <h2>Cookies</h2>
+      </div>
+    </div>
+
+    <!-- Row 3: Image | Image | Text -->
+    <div class="row">
+      <div class="image-block">
+        <img src="Images/salads.jpg" alt="Roll Bun" />
+        <h2>Roll Bun</h2>
+      </div>
+      <div class="image-block">
+        <img src="Images/salads.jpg" alt="Chocolate Bun" />
+        <h2>Chocolate Bun</h2>
+      </div>
+      <div class="text-block">
+        <h2>Bucy Cafe Futug</h2>
+        <p>
+          Fibentur spemo catisera park dry-pamleon foona. On treethfignis uliber
+          task tveoncarserene oca untrivit joan doien groesing t henter cuspid
+          oentas.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account | Recipe Sharing</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "papyrus", sans-serif;
+      }
+
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+      }
+
+      .top-nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 15px 25px;
+      }
+
+      .nav-icon {
+        position: relative;
+        cursor: pointer;
+        margin-left: 20px;
+      }
+
+      .nav-icon svg {
+        width: 24px;
+        height: 24px;
+        color: #444;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: white;
+        min-width: 120px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        border-radius: 4px;
+        padding: 8px 0;
+      }
+
+      .dropdown a {
+        color: #444;
+        padding: 8px 12px;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+      }
+
+      .dropdown a:hover {
+        background-color: #f1f1f1;
+      }
+
+      .account-container {
+        max-width: 1000px;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .account-header {
+        padding: 24px 30px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .account-header h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 6px;
+      }
+
+      .account-header p {
+        color: #666;
+        font-size: 16px;
+      }
+
+      .account-content {
+        display: flex;
+        padding: 30px;
+      }
+
+      .profile-image-container {
+        flex: 0 0 300px;
+        margin-right: 30px;
+        position: relative;
+      }
+
+      .profile-image {
+        width: 100%;
+        height: 300px;
+        background-color: #f5f6fa;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .camera-icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: white;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+      }
+
+      .profile-details {
+        flex: 1;
+      }
+
+      .profile-row {
+        margin-bottom: 15px;
+      }
+
+      .profile-label {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 2px;
+      }
+
+      .profile-value {
+        font-size: 15px;
+        color: #333;
+      }
+
+      button.edit-profile {
+        background-color: #3b5998;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+      }
+
+      button.edit-profile:hover {
+        background-color: #4c46c8;
+      }
+
+      /* Edit mode styles */
+      #editProfileForm {
+        display: none;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .save-button {
+        background-color: #3b5998;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .cancel-button {
+        background-color: white;
+        color: #333;
+        border: 1px solid #ddd;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      /* File input style */
+      .photo-upload {
+        display: none;
+      }
+
+      /* Loader styles */
+      .loader {
+        display: none;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #3b5998;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .error-message {
+        text-align: center;
+        color: #ff4a4a;
+        margin: 10px 0;
+        min-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-nav">
+      <div class="nav-icon" title="Home">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          />
+        </svg>
+        <div class="dropdown">
+          <a href="home.html">Home</a>
+        </div>
+      </div>
+
+      <div class="nav-icon" title="Website">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+          />
+        </svg>
+        <div class="dropdown">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+
+      <div class="nav-icon" title="Profile">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+          />
+        </svg>
+        <div class="dropdown">
+          <a href="account.html">Account</a>
+        </div>
+      </div>
+
+      <div class="nav-icon" title="More">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+        <div id="more-dropdown" class="dropdown">
+          <a href="ATC.html">Add to cart</a>
+          <a href="diet.html">Diet</a>
+          <a href="grocery.html">Grocery</a>
+        </div>
+      </div>
+
+      <div class="nav-icon" title="Logout">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
+        </svg>
+        <div class="dropdown">
+          <a href="#" onclick="logoutUser(); return false;">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="loader" id="loader"></div>
+    <div class="error-message" id="errorMessage"></div>
+
+    <div class="account-container">
+      <div class="account-header">
+        <h2>Your Account</h2>
+        <p>Manage your personal information and settings.</p>
+      </div>
+
+      <div class="account-content">
+        <div class="profile-image-container">
+          <div class="profile-image">
+            <img
+              id="profileImageDisplay"
+              src="/api/placeholder/300/300"
+              alt="Profile avatar"
+            />
+            <label
+              for="photoUpload"
+              class="camera-icon"
+              title="Change profile photo"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                ></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </label>
+            <input
+              type="file"
+              id="photoUpload"
+              class="photo-upload"
+              accept="image/*"
+              capture="user"
+              onchange="handlePhotoUpload(this)"
+            />
+          </div>
+        </div>
+
+        <div class="profile-details">
+          <div id="viewProfileInfo">
+            <div class="profile-row">
+              <div class="profile-label">Name:</div>
+              <div class="profile-value" id="userName">cammy</div>
+            </div>
+
+            <div class="profile-row">
+              <div class="profile-label">Email:</div>
+              <div class="profile-value" id="userEmail">cam@gmail.com</div>
+            </div>
+
+            <div class="profile-row">
+              <div class="profile-label">Phone Number:</div>
+              <div class="profile-value" id="userPhone">9030316095</div>
+            </div>
+
+            <div class="profile-row">
+              <div class="profile-label">Address:</div>
+              <div class="profile-value" id="userAddress">Not available</div>
+            </div>
+
+            <button class="edit-profile" onclick="openEditForm()">
+              Edit Profile
+            </button>
+          </div>
+
+          <div id="editProfileForm">
+            <div class="profile-row">
+              <div class="profile-label">Name:</div>
+              <input type="text" id="editName" class="input-field" required />
+            </div>
+
+            <div class="profile-row">
+              <div class="profile-label">Email:</div>
+              <input type="email" id="editEmail" class="input-field" readonly />
+            </div>
+
+            <div class="profile-row">
+              <div class="profile-label">Phone Number:</div>
+              <input type="text" id="editPhone" class="input-field" />
+            </div>
+
+            <div class="profile-row">
+              <div class="profile-label">Address:</div>
+              <input type="text" id="editAddress" class="input-field" />
+            </div>
+
+            <div class="action-buttons">
+              <button type="button" onclick="saveProfile()" class="save-button">
+                Save
+              </button>
+              <button
+                type="button"
+                onclick="closeEditForm()"
+                class="cancel-button"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // When the page loads, check if the user is logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus();
+        setupNavigationDropdowns();
+      });
+
+      // Check if user is logged in
+      function checkLoginStatus() {
+        showLoader();
+
+        // Get user email and login status from localStorage
+        const userEmail = localStorage.getItem("userEmail");
+        const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+
+        console.log(
+          "Login check - Email:",
+          userEmail,
+          "Is logged in:",
+          isLoggedIn
+        );
+
+        if (userEmail && isLoggedIn) {
+          // User has email in localStorage and is marked as logged in
+          console.log("User appears to be logged in, fetching details");
+          fetchUserDetails(userEmail);
+        } else {
+          // No email in localStorage or not logged in
+          console.log("User not logged in, redirecting to register page");
+          document.getElementById("errorMessage").textContent =
+            "Please log in to access your account.";
+
+          // Delay redirect to show message
+          setTimeout(() => {
+            window.location.href = "register.html";
+          }, 2000);
+        }
+      }
+
+      // Function to fetch user details from the server
+      function fetchUserDetails(email) {
+        showLoader();
+        console.log("Attempting to fetch user data for:", email);
+
+        fetch(`/getUser?email=${email}`)
+          .then((response) => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+              if (response.status === 404) {
+                throw new Error("User not found");
+              }
+              throw new Error("Failed to fetch user data");
+            }
+            return response.json();
+          })
+          .then((userData) => {
+            console.log("User data received:", userData);
+
+            if (!userData || !userData.email) {
+              throw new Error("Invalid user data received");
+            }
+
+            // Display user details from the database
+            document.getElementById("userName").textContent =
+              userData.name || "Not available";
+            document.getElementById("userEmail").textContent =
+              userData.email || "Not available";
+            document.getElementById("userAddress").textContent =
+              userData.address || "Not available";
+            document.getElementById("userPhone").textContent =
+              userData.phone || "Not available";
+
+            // Load profile image if available
+            if (userData.profileImage) {
+              document.getElementById("profileImageDisplay").src =
+                userData.profileImage;
+            }
+
+            // Also update in localStorage
+            localStorage.setItem("userName", userData.name || "");
+            localStorage.setItem("userEmail", userData.email || "");
+            localStorage.setItem("userAddress", userData.address || "");
+            localStorage.setItem("userPhone", userData.phone || "");
+            localStorage.setItem("userLoggedIn", "true");
+
+            if (userData.profileImage) {
+              localStorage.setItem("profileImage", userData.profileImage);
+            }
+
+            hideLoader();
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+            document.getElementById("errorMessage").textContent = error.message;
+
+            // Check if we have fallback data in localStorage
+            if (
+              localStorage.getItem("userName") &&
+              localStorage.getItem("userEmail")
+            ) {
+              console.log("Using fallback data from localStorage");
+              displayUserDetailsFromLocalStorage();
+            } else {
+              console.log(
+                "No fallback data available, user might need to log in again"
+              );
+              // If no fallback data either, user needs to login again
+              setTimeout(() => {
+                logoutUser();
+              }, 3000);
+            }
+
+            hideLoader();
+          });
+      }
+
+      // Fallback function to display user details from localStorage
+      function displayUserDetailsFromLocalStorage() {
+        const userName = localStorage.getItem("userName") || "Not available";
+        const userEmail = localStorage.getItem("userEmail") || "Not available";
+        const userAddress =
+          localStorage.getItem("userAddress") || "Not available";
+        const userPhone = localStorage.getItem("userPhone") || "Not available";
+        const profileImage = localStorage.getItem("profileImage");
+
+        console.log("Displaying data from localStorage:", {
+          userName,
+          userEmail,
+        });
+
+        document.getElementById("userName").textContent = userName;
+        document.getElementById("userEmail").textContent = userEmail;
+        document.getElementById("userAddress").textContent = userAddress;
+        document.getElementById("userPhone").textContent = userPhone;
+
+        if (profileImage) {
+          document.getElementById("profileImageDisplay").src = profileImage;
+        }
+      }
+
+      // Open the Edit Profile form and pre-fill with current details
+      function openEditForm() {
+        document.getElementById("editName").value =
+          document.getElementById("userName").textContent;
+        document.getElementById("editEmail").value =
+          document.getElementById("userEmail").textContent;
+        document.getElementById("editAddress").value =
+          document.getElementById("userAddress").textContent;
+        document.getElementById("editPhone").value =
+          document.getElementById("userPhone").textContent;
+
+        document.getElementById("viewProfileInfo").style.display = "none";
+        document.getElementById("editProfileForm").style.display = "block";
+      }
+
+      // Close the Edit Profile form
+      function closeEditForm() {
+        document.getElementById("editProfileForm").style.display = "none";
+        document.getElementById("viewProfileInfo").style.display = "block";
+      }
+
+      // Handle photo upload
+      function handlePhotoUpload(input) {
+        if (input.files && input.files[0]) {
+          const file = input.files[0];
+
+          // Check file type and size
+          if (!file.type.match("image.*")) {
+            document.getElementById("errorMessage").textContent =
+              "Please select an image file";
+            document.getElementById("errorMessage").style.color = "red";
+            return;
+          }
+
+          if (file.size > 5000000) {
+            // 5MB limit
+            document.getElementById("errorMessage").textContent =
+              "Image file is too large (max 5MB)";
+            document.getElementById("errorMessage").style.color = "red";
+            return;
+          }
+
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            // Display the image preview
+            document.getElementById("profileImageDisplay").src =
+              e.target.result;
+
+            // Store in localStorage (in production, you'd upload to server)
+            localStorage.setItem("profileImage", e.target.result);
+
+            // In a real app, you would upload to server here
+            console.log("Would upload image to server here");
+            uploadProfileImage(e.target.result);
+          };
+
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Upload profile image to server
+      function uploadProfileImage(imageData) {
+        showLoader();
+        const email = document.getElementById("userEmail").textContent;
+
+        // In a real app, you would send the image to the server
+        fetch("/updateProfileImage", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            profileImage: imageData,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to upload image");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Image uploaded successfully:", data);
+            document.getElementById("errorMessage").textContent =
+              "Profile image updated!";
+            document.getElementById("errorMessage").style.color = "green";
+
+            setTimeout(() => {
+              document.getElementById("errorMessage").textContent = "";
+            }, 3000);
+
+            hideLoader();
+          })
+          .catch((error) => {
+            console.error("Error uploading image:", error);
+            // Image is already showing in UI, so no need to revert
+            document.getElementById("errorMessage").textContent =
+              "Image saved locally only. Server update failed.";
+            document.getElementById("errorMessage").style.color = "orange";
+            hideLoader();
+          });
+      }
+
+      // Save the edited profile information
+      function saveProfile() {
+        showLoader();
+
+        const email = document.getElementById("editEmail").value;
+        const name = document.getElementById("editName").value;
+        const address = document.getElementById("editAddress").value;
+        const phone = document.getElementById("editPhone").value;
+
+        console.log("Attempting to update profile for:", email);
+
+        // Send updated details to the server
+        fetch("/updateUser", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, name, address, phone }),
+        })
+          .then((response) => {
+            console.log("Update response status:", response.status);
+            if (!response.ok) {
+              throw new Error("Failed to update profile");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Profile update successful:", data);
+
+            // Update displayed details
+            document.getElementById("userName").textContent = name;
+            document.getElementById("userEmail").textContent = email;
+            document.getElementById("userAddress").textContent =
+              address || "Not available";
+            document.getElementById("userPhone").textContent =
+              phone || "Not available";
+
+            // Update localStorage
+            localStorage.setItem("userName", name);
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userAddress", address || "");
+            localStorage.setItem("userPhone", phone || "");
+
+            closeEditForm();
+            hideLoader();
+
+            // Show success message
+            document.getElementById("errorMessage").textContent =
+              "Profile updated successfully!";
+            document.getElementById("errorMessage").style.color = "green";
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+              document.getElementById("errorMessage").textContent = "";
+            }, 3000);
+          })
+          .catch((error) => {
+            console.error("Profile update error:", error);
+            document.getElementById("errorMessage").textContent = error.message;
+            document.getElementById("errorMessage").style.color = "red";
+            hideLoader();
+          });
+      }
+
+      // Logout function
+      function logoutUser() {
+        console.log("Logging out user");
+
+        // Clear all user data
+        localStorage.removeItem("userLoggedIn");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userAddress");
+        localStorage.removeItem("userPhone");
+        localStorage.removeItem("profileImage");
+
+        // Redirect to login page
+        window.location.href = "register.html";
+      }
+
+      // Helper functions for UI
+      function showLoader() {
+        document.getElementById("loader").style.display = "block";
+      }
+
+      function hideLoader() {
+        document.getElementById("loader").style.display = "none";
+      }
+
+      // Navigation dropdown functionality
+      function setupNavigationDropdowns() {
+        // Add click handlers to all nav icons
+        document.querySelectorAll(".nav-icon").forEach((icon) => {
+          const dropdown = icon.querySelector(".dropdown");
+
+          icon.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent click from reaching document
+
+            // Close other dropdowns first
+            document.querySelectorAll(".dropdown").forEach((otherDropdown) => {
+              if (otherDropdown !== dropdown) {
+                otherDropdown.style.display = "none";
+              }
+            });
+
+            // Toggle this dropdown
+            dropdown.style.display =
+              dropdown.style.display === "block" ? "none" : "block";
+          });
+        });
+
+        // Close all dropdowns when clicking elsewhere
+        document.addEventListener("click", function () {
+          document.querySelectorAll(".dropdown").forEach((dropdown) => {
+            dropdown.style.display = "none";
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Container styling */
+.container {
+  position: relative;
+  width: 110%; /* Increase the width of the container */
+  max-width: 1400px; /* Increase the max-width for larger screens */
+  cursor: pointer;
+}
+
+/* Image styling */
+.container img {
+  width: 100%; /* Adjust to 100% to fill the container width */
+  height: auto;
+  display: block;
+}
+
+/* Overlay text styling */
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Slight background overlay */
+  padding: 10px 20px;
+  border-radius: 5px;
+}

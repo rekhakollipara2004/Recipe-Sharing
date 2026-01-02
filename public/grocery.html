@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <style>
+        .top-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .nav-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .nav-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #555;
+    }
+
+     .dropdown {
+      display: none;
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .dropdown a {
+      display: inline-block;
+      padding: 10px;
+      text-decoration: none;
+      color: black;
+      white-space: nowrap;
+    }
+    
+    .dropdown a:hover {
+      background-color: #ddd;
+    }
+
+    .nav-icon:hover .dropdown{
+      display: block;
+    }
+        body {
+            font-family: papyrus, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .book {
+            position: relative;
+            width: 180px;
+            text-align: center;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .book:hover {
+            transform: scale(1.05);
+        }
+
+        .book img {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 10px;
+        }
+
+        .book:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay button {
+            background-color: #fff;
+            color: black;
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .cart-container {
+            margin-top: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: inline-block;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 40px;
+            height: 50px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .cart-item button {
+            margin-left: auto;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-icon" title="Home">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <div class="dropdown">
+            <a href="home.html">Home</a>
+          </div>
+        </div>
+          
+         <div class="nav-icon" title="Website">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+          </svg>
+          <div class="dropdown">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+  
+        <div class="nav-icon" title="Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <div class="dropdown">
+            <a href="account.html">Account</a>
+          </div>
+        </div>
+        
+        <div class="nav-icon" title="More">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <div id="more-dropdown" class="dropdown">
+            <a href="ATC.html">Add to cart</a>
+            <a href="diet.html">Diet</a>
+            <a href="grocery.html">Grocery</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <h1><center>Grocery</center></h1>    
+        <div class="book-container" id="bookContainer"></div>
+    
+
+    <h2>Your List</h2>
+    <div class="cart-container" id="cartContainer"></div>
+    <h3>Total: ₹<span id="totalPrice">0</span></h3>
+    <button id="checkout" style="background-color: #3b5998; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+        Proceed to Checkout
+    </button>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const books = [
+                { title: "BabyCorn", image: "Images/babycorn.jpg", cost: 50 },
+                { title: "Basil", image: "Images/basil.jpg", cost: 30 },
+                { title: "Beef", image: "Images/beefimg.jpg", cost: 500 },
+                { title: "Bell Pepper", image: "Images/pepperbell.jpg", cost: 80 },
+                { title: "Blue Berry", image: "Images/blueberry.webp", cost: 150 },
+                { title: "Butter", image: "Images/butter.jpg", cost: 90 },
+                { title: "Carrot", image: "Images/carrot.webp", cost: 40 },
+                { title: "Cheese", image: "Images/cheese.webp", cost: 120 },
+                { title: "Coco Powder", image: "Images/cocopowder.jpg", cost: 200 },
+                { title: "Chicken", image: "Images/chicken.jpg", cost: 250 },
+                { title: "Chilli Flakes", image: "Images/chilliflakes.jpg", cost: 35 },
+                { title: "Chilli Powder", image: "Images/karam.jpeg", cost: 50 },
+                { title: "Chilli Sauce", image: "Images/chillisauce.jpg", cost: 70 },
+                { title: "Dark Chocolate", image: "Images/darkchocolate.jpg", cost: 180 },
+                { title: "Dry Fruits", image: "Images/dryfruits.webp", cost: 400 },
+                { title: "Eggs", image: "Images/eggs.jpg", cost: 60 },
+                { title: "Garlic Paste", image: "Images/garlicpaste.jpg", cost: 50 },
+                { title: "Tomato Ketchup", image: "Images/Ketchup.jpg", cost: 80 },
+                { title: "Mixed Herbs", image: "Images/mixedherbs.webp", cost: 40 },
+                { title: "Mushroom", image: "Images/mushroom.jpg", cost: 120 },
+                { title: "Mutton", image: "Images/mutton.jpg", cost: 600 },
+                { title: "Olive Oil", image: "Images/oliveoil.jpg", cost: 450 },
+                { title: "Onion", image: "Images/onion.jpg", cost: 30 },
+                { title: "Oregano", image: "Images/oregano.jpg", cost: 40 },
+                { title: "Paneer", image: "Images/paneer.jpg", cost: 90 },
+                { title: "Parsley", image: "Images/parsley.webp", cost: 35 },
+                { title: "Pepper", image: "Images/pepperimg.jpg", cost: 50 },
+                { title: "Potato", image: "Images/potato.webp", cost: 25 },
+                { title: "Salt", image: "Images/salt.webp", cost: 20 },
+                { title: "Soy Sauce", image: "Images/soyasauce.jpg", cost: 80 },
+                { title: "Sweet Corn", image: "Images/sweetcorn.webp", cost: 40 },
+                { title: "Tomato", image: "Images/tomato.jpg", cost: 30 },
+                { title: "Turmeric", image: "Images/turmeric.jpg", cost: 50 },
+                { title: "Vanilla Essence", image: "Images/vanillaessence.jpg", cost: 200 },
+                { title: "Whipping Cream", image: "Images/whippingcream.jpg", cost: 250 }
+            ];
+
+            const bookContainer = document.getElementById("bookContainer");
+            const cartContainer = document.getElementById("cartContainer");
+            const totalPriceElement = document.getElementById("totalPrice");
+
+            function updateCart() {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartContainer.innerHTML = "";
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    total += item.cost;
+                    const cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}">
+                        <strong>${item.title}</strong>
+                        <span>₹${item.cost}</span>
+                        <button onclick="removeFromCart(${index})">🗑️</button>
+                    `;
+                    cartContainer.appendChild(cartItem);
+                });
+                totalPriceElement.textContent = total;
+            }
+
+            books.forEach(book => {
+                const bookElement = document.createElement("div");
+                bookElement.classList.add("book");
+                bookElement.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}">
+                    <div class="overlay">
+                        <button>Cost: ₹${book.cost}</button>
+                        <button onclick="addToCart('${book.title}', '${book.image}', ${book.cost})">Add to List</button>
+                    </div>
+                `;
+                bookContainer.appendChild(bookElement);
+            });
+
+            window.addToCart = function (title, image, cost) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({ title, image, cost });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            };
+
+            window.removeFromCart = function (index) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            };
+
+            updateCart();
+        });
+        document.getElementById("checkout").addEventListener("click", function() {
+            let totalAmount = 0; // Dynamically update this if needed
+            window.location.href = "grodev.html" + totalAmount;
+        });
+        //dropdown hovering
+ document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".nav-icon").forEach((icon) => {
+      const dropdown = icon.querySelector(".dropdown");
+
+      icon.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent event from bubbling up
+        closeAllDropdowns();
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      });
+    });
+
+    document.addEventListener("click", function () {
+      closeAllDropdowns();
+    });
+    document.getElementById("checkout").addEventListener("click", function() {
+    window.location.href = "grodev.html"; // Change this to your delivery page file
+});
+    function closeAllDropdowns() {
+      document.querySelectorAll(".dropdown").forEach((dropdown) => {
+        dropdown.style.display = "none";
+      });
+    }
+  });
+
+    </script>
+</body>
+</html>

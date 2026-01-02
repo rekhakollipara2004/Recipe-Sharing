@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Menu</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        background-color: #f7eaea;
+        color: black;
+      }
+
+      .menu-title {
+        text-align: center;
+        font-size: 60px;
+        font-weight: bold;
+        color: orange;
+        margin-bottom: 40px;
+      }
+
+      .menu-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Wrap all recipe sections inside this */
+      #menu-sections {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Section styling (update this) */
+      .section {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f7eaea;
+        border-radius: 15px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      /* On hover */
+      .section:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Reverse section for alternating layout */
+      .section.reverse {
+        flex-direction: row-reverse;
+      }
+
+      /* Responsive image & slight zoom effect */
+      .section img {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid orange;
+        transition: transform 0.3s;
+      }
+      .section img:hover {
+        transform: scale(1.1);
+      }
+
+      /* Text styling inside section */
+      .details {
+        flex: 1;
+        padding: 0 20px;
+      }
+      .details h2 {
+        color: #ff6600;
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .details p {
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      /* Adjust for smaller screens */
+      @media screen and (max-width: 600px) {
+        .section {
+          flex-direction: column;
+          text-align: center;
+        }
+        .section.reverse {
+          flex-direction: column;
+        }
+        .details {
+          padding: 15px 0 0;
+        }
+      }
+
+      .details h2 {
+        margin: 0 0 10px;
+        color: orange;
+        font-size: 26px;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        margin: 6px 0;
+        border-bottom: 1px solid #444;
+        padding-bottom: 4px;
+      }
+
+      .item span {
+        font-size: 18px;
+      }
+
+      .price {
+        color: orange;
+        font-weight: bold;
+      }
+
+      @media screen and (max-width: 400px) {
+        .section {
+          flex-direction: column;
+          text-align: center;
+        }
+        .section.reverse {
+          flex-direction: column;
+        }
+        .details {
+          padding: 10px 0;
+        }
+      }
+      .top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px;
+        z-index: 100;
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .nav-icon svg {
+        width: 20px;
+        height: 20px;
+        color: #555;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 45px;
+        right: 0;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .dropdown a {
+        display: inline-block;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        white-space: nowrap;
+      }
+
+      .dropdown a:hover {
+        background-color: #ddd;
+      }
+
+      .nav-icon:hover .dropdown {
+        display: block;
+      }
+
+      .dialog {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        width: 300px;
+        max-width: 100%;
+      }
+
+      .dialog label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .dialog input,
+      .dialog textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .dialog button {
+        padding: 10px 20px;
+        background-color: #3b5998;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .dialog button:hover {
+        background-color: #3b5998;
+      }
+
+      /* Pagination Styles */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 30px;
+      }
+      .pagination button {
+        padding: 8px 14px;
+        border: none;
+        background-color: #eee;
+        color: #333;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .pagination button.active {
+        background-color: orange;
+        color: white;
+      }
+      .pagination button:hover:not(.active) {
+        background-color: #ccc;
+      }
+      /* Hide default link styling when recipes are clicked */
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu-title">FOOD MENU</div>
+
+    <div id="menu-sections"></div>
+
+    <div class="pagination" id="pagination-container"></div>
+
+    <script>
+      const recipes = [
+        {
+          title: "Biryani's",
+          img: "Images/biryani's.jpg",
+          link: "biryani.html",
+          desc: "Aromatic basmati rice layered with spiced meat or vegetables, slow-cooked to perfection with rich Indian spices.",
+        },
+        {
+          title: "Chinese",
+          img: "Images/chinese.jpg",
+          link: "Chineese.html",
+          desc: "Spicy, tangy, and full of flavor—our Indo-Chinese dishes are tossed to perfection with vibrant sauces.",
+        },
+        {
+          title: "Desserts",
+          img: "Images/desserts.jpg",
+          link: "Deserts.html",
+          desc: "Cakes, pastries, puddings, and ice creams. The sweet ending to any meal!",
+        },
+        {
+          title: "Italian",
+          img: "Images/italian.jpg",
+          link: "Italian.html",
+          desc: "Enjoy a bite of Italy with our cheesy pizzas and juicy burgers made with fresh ingredients.",
+        },
+        {
+          title: "Rolls & Shawarmas",
+          img: "Images/Rolls.png",
+          link: "Rolls.html",
+          desc: "Tasty wraps packed with flavorful fillings and spices—perfect for a quick and satisfying meal.",
+        },
+        {
+          title: "Salads",
+          img: "Images/salads.jpg",
+          link: "Salads.html",
+          desc: "Fresh, healthy, and colorful! Crisp vegetables, proteins, and dressings for a refreshing bite.",
+        },
+      ];
+
+      const perPage = 3;
+      let currentPage = 1;
+
+      function renderMenu() {
+        const start = (currentPage - 1) * perPage;
+        const end = start + perPage;
+        const currentRecipes = recipes.slice(start, end);
+
+        const sectionHTML = currentRecipes
+          .map(
+            (recipe, index) => `
+        <div class="section ${index % 2 === 1 ? "reverse" : ""}">
+          <a href="${recipe.link}">
+            <img src="${recipe.img}" alt="${recipe.title}" />
+          </a>
+          <div class="details">
+            <h2>${recipe.title}</h2>
+            <p>${recipe.desc}</p>
+          </div>
+        </div>
+      `
+          )
+          .join("");
+
+        document.getElementById("menu-sections").innerHTML = sectionHTML;
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(recipes.length / perPage);
+        let buttonsHTML = "";
+
+        if (currentPage > 1) {
+          buttonsHTML += `<button onclick="goToPage(${
+            currentPage - 1
+          })">Prev</button>`;
+        }
+
+        for (let i = 1; i <= totalPages; i++) {
+          buttonsHTML += `<button onclick="goToPage(${i})" class="${
+            i === currentPage ? "active" : ""
+          }">${i}</button>`;
+        }
+
+        if (currentPage < totalPages) {
+          buttonsHTML += `<button onclick="goToPage(${
+            currentPage + 1
+          })">Next</button>`;
+        }
+
+        document.getElementById("pagination-container").innerHTML = buttonsHTML;
+      }
+
+      function goToPage(page) {
+        currentPage = page;
+        renderMenu();
+        renderPagination();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderMenu();
+        renderPagination();
+      });
+    </script>
+  </body>
+</html>
