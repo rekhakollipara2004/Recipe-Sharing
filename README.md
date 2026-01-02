@@ -8,12 +8,11 @@ A modern, full-stack recipe-sharing application that empowers food enthusiasts t
 Recipe-Sharing is more than just a recipe app—it's your complete kitchen companion. Whether you're a home cook looking for dinner inspiration, a fitness enthusiast tracking macros, or someone exploring new cuisines, this platform adapts to your needs.
 
 ## Key Highlights
-1. Secure Authentication - Safe user registration and login system <br>
-2. Smart Recipe Discovery - Browse and search through diverse recipes <br>
-3. Integrated Shopping Cart - Add ingredients directly to cart with one click <br>
-4. Custom Diet Plans - Generate personalized meal plans based on your goals <br>
-5. Seamless Checkout - Detailed billing and order management <br>
-6. Data Persistence - Your recipes and preferences saved securely <br>
+1. Secure Authentication <br>
+2. Smart Recipe Discovery br>
+3. Integrated Shopping Cart  <br>
+4. Custom Diet Plans <br>
+5. Data Persistence <br>
 
 ### Frontend
 
