@@ -2,8 +2,6 @@
 
 # 🍳 Recipe-Sharing Platform
 
-### *Discover, Cook, and Thrive*
-
 **Your personalized culinary companion for exploring recipes, planning meals, and shopping smarter.**
 
 A modern, full-stack recipe-sharing application that empowers food enthusiasts to discover new dishes, customize meal plans, and seamlessly shop for ingredients — all in one intuitive platform.
@@ -94,16 +92,6 @@ cp .env.example .env
 npm run dev
 ```
 
----
-
-## 📸 Screenshots
-
-<p align="center">
-  <img src="assets/home.png" width="45%" />
-  <img src="assets/recipes.png" width="45%" />
-</p>
-
----
 
 ## 🔮 Future Enhancements
 
@@ -117,8 +105,3 @@ npm run dev
 
 ---
 
-<div align="center">
-
-Made with ❤️ and lots of ☕
-
-</div>
