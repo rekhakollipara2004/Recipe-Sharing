@@ -7,6 +7,7 @@
 A modern, full-stack recipe-sharing application that empowers food enthusiasts to discover new dishes, customize meal plans, and seamlessly shop for ingredients — all in one intuitive platform.
  
 </div>
+
 ---
  
 <br>
@@ -14,7 +15,8 @@ A modern, full-stack recipe-sharing application that empowers food enthusiasts t
 ## 〔 01 〕&nbsp; Features
  
 <br>
-```
+
+```bash
 🔐  SECURE AUTH          →   JWT-based login & user account management
 🔍  SMART DISCOVERY      →   Find recipes tailored to your taste & diet  
 🛒  SHOPPING CART        →   Add ingredients to cart in one click
