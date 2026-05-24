@@ -1,4 +1,5 @@
 <div align="center">
+
 # 🍳 Recipe-Sharing Platform
   
 **Your personalized culinary companion for exploring recipes, planning meals, and shopping smarter.**
@@ -6,10 +7,8 @@
 A modern, full-stack recipe-sharing application that empowers food enthusiasts to discover new dishes, customize meal plans, and seamlessly shop for ingredients — all in one intuitive platform.
 
 <br>
-
+</div>
 ---
-
-<br>
 
 ## 〔 01 〕&nbsp; Features
 
