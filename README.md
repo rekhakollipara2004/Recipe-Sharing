@@ -25,7 +25,6 @@ A modern, full-stack recipe-sharing application that empowers food enthusiasts t
 ```
  
 <br>
----
 
 ## 〔 02 〕&nbsp; Built With
 
