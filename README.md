@@ -1,19 +1,18 @@
 <div align="center">
-
-# 🍳 Recipe-Sharing Platform
   
+# 🍳 Recipe-Sharing Platform
+ 
 **Your personalized culinary companion for exploring recipes, planning meals, and shopping smarter.**
  
 A modern, full-stack recipe-sharing application that empowers food enthusiasts to discover new dishes, customize meal plans, and seamlessly shop for ingredients — all in one intuitive platform.
-
-<br>
+ 
 </div>
 ---
-
-## 〔 01 〕&nbsp; Features
-
+ 
 <br>
-
+## 〔 01 〕&nbsp; Features
+ 
+<br>
 ```
 🔐  SECURE AUTH          →   JWT-based login & user account management
 🔍  SMART DISCOVERY      →   Find recipes tailored to your taste & diet  
@@ -21,9 +20,8 @@ A modern, full-stack recipe-sharing application that empowers food enthusiasts t
 🥗  DIET PLANS           →   Custom meal plans around your health goals
 💾  DATA PERSISTENCE     →   All your data saved securely across sessions
 ```
-
+ 
 <br>
-
 ---
 
 ## 〔 02 〕&nbsp; Built With
