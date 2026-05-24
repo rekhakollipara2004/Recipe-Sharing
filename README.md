@@ -1,25 +1,11 @@
 <div align="center">
-<br>
-
-<img src="https://img.shields.io/badge/-%F0%9F%8D%B3%20RECIPE%20SHARING%20PLATFORM-FF6B35?style=for-the-badge&labelColor=1a1a2e" />
-
-<br><br>
-
-[![Made With Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red?style=flat-square)](/)
-[![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)]()
-[![Platform](https://img.shields.io/badge/Platform-Web-blue?style=flat-square)]()
-[![Stack](https://img.shields.io/badge/Stack-MERN-green?style=flat-square)]()
-
-</div>
+# 🍳 Recipe-Sharing Platform
+  
+**Your personalized culinary companion for exploring recipes, planning meals, and shopping smarter.**
+ 
+A modern, full-stack recipe-sharing application that empowers food enthusiasts to discover new dishes, customize meal plans, and seamlessly shop for ingredients — all in one intuitive platform.
 
 <br>
-
----
-
-```
- A full-stack recipe-sharing app that empowers food enthusiasts to discover
- new dishes, customize meal plans, and shop for ingredients — all in one place.
-```
 
 ---
 
@@ -53,6 +39,14 @@ javascript   →  ES6+ interactive functionality
 html5        →  Semantic markup structure
 css3         →  Flexbox & Grid modern styling
 ```
+<div align="center">
+ 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+</div>
+<br>
 
 **Backend**
 
@@ -71,7 +65,6 @@ mongoose     →  MongoDB object modeling
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)&nbsp;
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)&nbsp;
 ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)&nbsp;
-![JavaScript](https://img.shields.io/badge/JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 </div>
 
